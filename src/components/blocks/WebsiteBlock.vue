@@ -3,8 +3,10 @@ import { computed } from 'vue'
 import type { BioBlock } from '@/types/bio'
 import GithubIcon from '@/components/icons/GithubIcon.vue'
 
+type WebsiteBlockData = Extract<BioBlock, { type: 'website' }>
+
 const props = defineProps<{
-  block: BioBlock
+  block: WebsiteBlockData
 }>()
 
 const href = String(props.block.content.href ?? `https://${props.block.content.url}`)

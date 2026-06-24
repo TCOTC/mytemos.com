@@ -14,5 +14,5 @@ defineProps<{
   <TitleBlock v-if="block.type === 'title'" :block="block" />
   <WebsiteBlock v-else-if="block.type === 'website'" :block="block" />
   <WebsiteImageBlock v-else-if="block.type === 'website-image'" :block="block" />
-  <GithubBlock v-else-if="block.type === 'github'" :block="block" />
+  <GithubBlock v-else-if="block.type === 'github'" />
 </template>

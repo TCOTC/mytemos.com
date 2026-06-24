@@ -9,13 +9,11 @@ export interface ContributionWeek {
 }
 
 export interface GithubContributions {
-  login: string
   name: string
   bio: string
   followers: number
   repos: number
   totalContributions: number
   href: string
-  fetchedAt: string
   weeks: ContributionWeek[]
 }

@@ -1,12 +1,7 @@
 <script setup vapor lang="ts">
-import type { BioBlock } from '@/types/bio'
 import { githubContributions as githubData } from '@/data/github'
 import GithubIcon from '@/components/icons/GithubIcon.vue'
 import ContributionGraph from '@/components/blocks/ContributionGraph.vue'
-
-defineProps<{
-  block: BioBlock
-}>()
 </script>
 
 <template>

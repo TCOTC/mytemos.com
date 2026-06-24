@@ -25,7 +25,12 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm build
+
+      - name: Build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: TCOTC
+        run: pnpm build
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1

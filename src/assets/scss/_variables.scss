@@ -1,6 +1,7 @@
+@use 'sass:math';
+
 // Memphis + 像素 + Z 世代极繁配色
 $color-bg: #fff5e6;
-$color-bg-alt: #ffe8f5;
 
 $color-text: #1a1a2e;
 $color-text-muted: #3d3d5c;
@@ -14,21 +15,16 @@ $memphis-yellow: #ffe500;
 $memphis-purple: #9b5de5;
 $memphis-orange: #ff6b35;
 $memphis-lime: #bfff00;
-$memphis-blue: #4361ee;
 $memphis-black: #1a1a2e;
 
-$color-primary: $memphis-pink;
 $color-card-bg: #ffffff;
-$color-card-border: $memphis-black;
 
 $radius-card: 0;
 $radius-icon: 0;
-$radius-button: 0;
 $radius-sticker: 2px;
 
 $border-thick: 3px;
 $shadow-offset: 4px;
-$shadow-hard: #{$shadow-offset} #{$shadow-offset} 0 $memphis-black;
 
 $font-display: 'Archivo Black', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 $font-pixel: 'Press Start 2P', monospace;
@@ -51,16 +47,17 @@ $bento-first-card-offset: $bento-me-title-height + $title-cards-gap + $grid-gap;
 $grid-width-desktop: 700px;
 $grid-width-mobile: 350px;
 $grid-row-height: 87.5px;
-$grid-cell-desktop: (
-  $grid-width-desktop - ($grid-columns - 1) * $grid-gap
-) / $grid-columns;
-$grid-cell-mobile: (
-  $grid-width-mobile - ($grid-columns-mobile - 1) * $grid-gap
-) / $grid-columns-mobile;
+$grid-cell-desktop: math.div(
+  $grid-width-desktop - ($grid-columns - 1) * $grid-gap,
+  $grid-columns
+);
+$grid-cell-mobile: math.div(
+  $grid-width-mobile - ($grid-columns-mobile - 1) * $grid-gap,
+  $grid-columns-mobile
+);
 $breakpoint-wide: 1239px;
 $breakpoint-mobile: 760px;
 $profile-width-wide: 375px;
-$profile-max-narrow: 630px;
 
 $block-padding-x: 12px;
 

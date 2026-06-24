@@ -1,5 +1,6 @@
 <script setup vapor lang="ts">
 import { computed } from 'vue'
+import { GITHUB_VISIBLE_WEEKS } from '@/constants/github'
 import type { ContributionWeek } from '@/types/github'
 
 const props = withDefaults(
@@ -8,7 +9,7 @@ const props = withDefaults(
     visibleWeeks?: number
   }>(),
   {
-    visibleWeeks: 22,
+    visibleWeeks: GITHUB_VISIBLE_WEEKS,
   },
 )
 

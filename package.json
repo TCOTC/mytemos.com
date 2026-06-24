@@ -4,13 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/ensure-github-data.mjs",
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "node scripts/fetch-github.mjs && vue-tsc -b && vite build",
     "preview": "vite preview",
     "fetch:github": "node scripts/fetch-github.mjs"
   },
   "dependencies": {
-    "vue": "3.6.0-beta.16"
+    "vue": "3.6.0-beta.17"
   },
   "devDependencies": {
     "@types/node": "^26.0.0",

@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# 构建 / 开发时由 scripts/fetch-github.mjs 生成
+src/data/github-contributions.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

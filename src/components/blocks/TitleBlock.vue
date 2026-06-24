@@ -1,14 +1,16 @@
 <script setup vapor lang="ts">
 import type { BioBlock } from '@/types/bio'
 
+type TitleBlockData = Extract<BioBlock, { type: 'title' }>
+
 defineProps<{
-  block: BioBlock
+  block: TitleBlockData
 }>()
 </script>
 
 <template>
   <div class="title-block">
-    <h2 class="title-block__text">{{ String(block.content.text ?? '') }}</h2>
+    <h2 class="title-block__text">{{ String(block.content.text) }}</h2>
     <svg class="title-block__squiggle" viewBox="0 0 120 12" aria-hidden="true">
       <path
         d="M2 8 C 20 2, 40 10, 60 6 S 100 2, 118 8"
@@ -24,7 +26,6 @@ defineProps<{
 
 <style scoped lang="scss">
 @use '@/assets/scss/variables' as *;
-@use '@/assets/scss/mixins' as *;
 
 .title-block {
   position: relative;

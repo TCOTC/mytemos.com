@@ -3,13 +3,8 @@
 
 .bento-grid {
   display: grid;
-  grid-template-columns: repeat($grid-columns, 1fr);
-  grid-template-rows:
-    auto
-    $grid-cell-desktop
-    $grid-cell-desktop
-    auto
-    repeat(4, $grid-row-height);
+  grid-template-columns: repeat(var(--bento-columns, #{$grid-columns}), 1fr);
+  grid-template-rows: var(--bento-grid-rows);
   gap: $grid-gap;
   width: 100%;
   margin-top: 40px;
@@ -17,11 +12,23 @@
   @media (min-width: $breakpoint-wide) {
     margin-top: 0;
   }
+
+  @media (max-width: $breakpoint-mobile) {
+    grid-template-columns: repeat(var(--bento-columns-mobile, #{$grid-columns-mobile}), 1fr);
+    grid-template-rows: var(--bento-grid-rows-mobile);
+  }
 }
 
 .bento-block {
   min-height: 0;
   min-width: 0;
+  grid-column: var(--grid-col);
+  grid-row: var(--grid-row);
+
+  @media (max-width: $breakpoint-mobile) {
+    grid-column: var(--grid-col-mobile);
+    grid-row: var(--grid-row-mobile);
+  }
 }
 
 .bento-block--title {
@@ -32,7 +39,7 @@
 }
 
 // 仅拉开与上方卡片的距离，不影响标题与下方卡片的间距
-.bento-block--title-os {
+.bento-block--section-gap {
   margin-top: $title-section-gap;
 }
 
@@ -42,137 +49,5 @@
 
   &:hover {
     overflow: visible;
-  }
-}
-
-// 各卡片孟菲斯配色 + 微倾斜
-.bento-block--afdian {
-  --card-bg: #ffe5f0;
-  --card-accent: #{$memphis-pink};
-  --card-shadow: #{$memphis-pink};
-  --card-deco: '♥';
-  --card-tilt: -1.5deg;
-}
-
-.bento-block--ld246 {
-  --card-bg: #e0fcff;
-  --card-accent: #{$memphis-cyan};
-  --card-shadow: #{$memphis-cyan};
-  --card-deco: '◆';
-  --card-tilt: 1deg;
-}
-
-.bento-block--github {
-  --card-bg: #f0ffe0;
-  --card-accent: #{$memphis-lime};
-  --card-shadow: #{$memphis-lime};
-  --card-deco: '⌘';
-  --card-tilt: 0.5deg;
-}
-
-.bento-block--siyuan {
-  --card-bg: #f0e8ff;
-  --card-accent: #{$memphis-purple};
-  --card-shadow: #{$memphis-purple};
-  --card-deco: '✿';
-  --card-tilt: -1deg;
-}
-
-.bento-block--whisper {
-  --card-bg: #ffe8d6;
-  --card-accent: #{$memphis-orange};
-  --card-shadow: #{$memphis-orange};
-  --card-deco: '☆';
-  --card-tilt: 1.2deg;
-}
-
-// 桌面端：8 列网格坐标（与 jeff.ts layout 一致）
-.bento-block--title-me {
-  grid-column: 1 / span 8;
-  grid-row: 1;
-  --title-accent: #{$memphis-pink};
-}
-
-.bento-block--afdian {
-  grid-column: 1 / span 2;
-  grid-row: 2 / span 2;
-}
-
-.bento-block--ld246 {
-  grid-column: 3 / span 2;
-  grid-row: 2 / span 2;
-}
-
-.bento-block--title-os {
-  grid-column: 1 / span 8;
-  grid-row: 4;
-  --title-accent: #{$memphis-purple};
-}
-
-.bento-block--github {
-  grid-column: 1 / span 4;
-  grid-row: 5 / span 4;
-}
-
-.bento-block--siyuan {
-  grid-column: 5 / span 4;
-  grid-row: 5 / span 2;
-}
-
-.bento-block--whisper {
-  grid-column: 5 / span 4;
-  grid-row: 7 / span 2;
-}
-
-@media (max-width: $breakpoint-mobile) {
-  .bento-grid {
-    grid-template-columns: repeat($grid-columns-mobile, 1fr);
-    grid-template-rows:
-      auto
-      $grid-cell-mobile
-      $grid-cell-mobile
-      $grid-cell-mobile
-      $grid-cell-mobile
-      auto
-      repeat(8, $grid-cell-mobile);
-  }
-
-  .bento-block--title-me {
-    grid-column: 1 / -1;
-    grid-row: 1;
-    --title-accent: #{$memphis-pink};
-  }
-
-  // Me：半宽正方形，一行两个
-  .bento-block--afdian {
-    grid-column: 1 / span 2;
-    grid-row: 2 / span 2;
-  }
-
-  .bento-block--ld246 {
-    grid-column: 3 / span 2;
-    grid-row: 2 / span 2;
-  }
-
-  .bento-block--title-os {
-    grid-column: 1 / -1;
-    grid-row: 4;
-    --title-accent: #{$memphis-purple};
-  }
-
-  // Open Source：全宽纵向堆叠
-  .bento-block--github {
-    grid-column: 1 / -1;
-    grid-row: 5 / span 4;
-  }
-
-  .bento-block--siyuan {
-    grid-column: 1 / -1;
-    grid-row: 9 / span 2;
-  }
-
-  .bento-block--whisper {
-    grid-column: 1 / -1;
-    grid-row: 11 / span 2;
   }
 }
