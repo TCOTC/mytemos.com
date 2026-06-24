@@ -1,5 +1,8 @@
 allowBuilds:
   '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+  workerd: true
 minimumReleaseAgeExclude:
   - vite@8.1.0
   - '@vue/compiler-core@3.6.0-beta.17'
