@@ -23,7 +23,7 @@ export const jeffProfile: SpaceProfile = {
       content: {
         title: '爱发电 (打赏)',
         url: 'afdian.com',
-        href: 'https://afdian.com',
+        href: 'https://afdian.com/a/JeffreyChen',
         favicon: img('afdian-favicon.png'),
       },
     },
@@ -34,19 +34,8 @@ export const jeffProfile: SpaceProfile = {
       content: {
         title: '链滴主页',
         url: 'ld246.com',
-        href: 'https://ld246.com',
+        href: 'https://ld246.com/member/JeffreyChen',
         favicon: img('ld246-favicon.jpg'),
-      },
-    },
-    {
-      id: 'pipe',
-      type: 'website',
-      layout: { x: 4, y: 1, w: 2, h: 2 },
-      content: {
-        title: 'Pipe博客 (没用)',
-        url: 'pipe.b3log.org',
-        href: 'https://pipe.b3log.org',
-        favicon: img('pipe-favicon.jpg'),
       },
     },
     {
@@ -80,7 +69,7 @@ export const jeffProfile: SpaceProfile = {
       content: {
         title: 'Whisper: a SiYuan theme',
         url: 'github.com',
-        href: 'https://github.com/TCOTC/siyuan-theme-whisper',
+        href: 'https://github.com/TCOTC/Whisper',
         favicon: img('whisper-favicon.jpg'),
         image: img('whisper-preview.png'),
       },

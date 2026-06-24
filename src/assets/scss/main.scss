@@ -17,11 +17,30 @@ body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
-    Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  font-family: $font-body;
   background-color: $color-bg;
+  color: $color-text;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
+  background-image:
+    radial-gradient(circle at 8% 12%, rgb(255 61 143 / 18%) 0%, transparent 22%),
+    radial-gradient(circle at 92% 8%, rgb(0 229 255 / 16%) 0%, transparent 20%),
+    radial-gradient(circle at 85% 88%, rgb(191 255 0 / 14%) 0%, transparent 24%),
+    radial-gradient(circle at 12% 78%, rgb(155 93 229 / 12%) 0%, transparent 20%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 39px,
+      rgb(26 26 46 / 4%) 39px,
+      rgb(26 26 46 / 4%) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 39px,
+      rgb(26 26 46 / 4%) 39px,
+      rgb(26 26 46 / 4%) 40px
+    );
 }
 
 a {
@@ -31,4 +50,9 @@ a {
 
 #app {
   min-height: 100%;
+}
+
+::selection {
+  background: $memphis-yellow;
+  color: $memphis-black;
 }

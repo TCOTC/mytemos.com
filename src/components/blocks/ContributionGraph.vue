@@ -90,6 +90,8 @@ const monthLabels = computed(() => {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/scss/variables' as *;
+
 .contribution-graph {
   width: 100%;
 }
@@ -104,9 +106,10 @@ const monthLabels = computed(() => {
 .contribution-graph__month {
   position: absolute;
   top: 0;
-  font-size: 10px;
-  line-height: 1;
-  color: #767676;
+  font-family: $font-pixel;
+  font-size: 6px;
+  line-height: 1.4;
+  color: $color-text-subtle;
   white-space: nowrap;
 }
 
@@ -120,9 +123,10 @@ const monthLabels = computed(() => {
   grid-template-rows: repeat(7, 9px);
   gap: 2px;
   width: 22px;
-  font-size: 9px;
+  font-family: $font-pixel;
+  font-size: 5px;
   line-height: 9px;
-  color: #767676;
+  color: $color-text-subtle;
 }
 
 .contribution-graph__grid {
@@ -139,23 +143,31 @@ const monthLabels = computed(() => {
 .contribution-graph__cell {
   width: 9px;
   height: 9px;
-  border-radius: 2px;
+  border-radius: 0;
+  border: 1px solid rgb(26 26 46 / 12%);
+  // 空档：浅灰底
   background-color: #ebedf0;
+  image-rendering: pixelated;
 
+  // 由浅到深的绿色梯度，贡献越多颜色越深
   &--1 {
     background-color: #9be9a8;
+    border-color: rgb(26 26 46 / 15%);
   }
 
   &--2 {
     background-color: #40c463;
+    border-color: rgb(26 26 46 / 18%);
   }
 
   &--3 {
     background-color: #30a14e;
+    border-color: rgb(26 26 46 / 22%);
   }
 
   &--4 {
     background-color: #216e39;
+    border-color: #216e39;
   }
 }
 </style>

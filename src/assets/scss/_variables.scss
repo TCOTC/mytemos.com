@@ -1,20 +1,53 @@
-$color-bg: #fefefe;
-$color-text: #000000;
-$color-text-muted: #666666;
-$color-text-subtle: #999999;
-$color-text-secondary: #888888;
-$color-text-body: #555555;
-$color-card-bg: #fcfcfc;
-$color-card-border: #e9e9e9;
-$color-primary: #ff0000;
+// Memphis + 像素 + Z 世代极繁配色
+$color-bg: #fff5e6;
+$color-bg-alt: #ffe8f5;
 
-$radius-card: 20px;
-$radius-icon: 8px;
-$radius-button: 8px;
+$color-text: #1a1a2e;
+$color-text-muted: #3d3d5c;
+$color-text-subtle: #5c5c7a;
+$color-text-secondary: #4a4a6a;
+$color-text-body: #3d3d5c;
+
+$memphis-pink: #ff3d8f;
+$memphis-cyan: #00e5ff;
+$memphis-yellow: #ffe500;
+$memphis-purple: #9b5de5;
+$memphis-orange: #ff6b35;
+$memphis-lime: #bfff00;
+$memphis-blue: #4361ee;
+$memphis-black: #1a1a2e;
+
+$color-primary: $memphis-pink;
+$color-card-bg: #ffffff;
+$color-card-border: $memphis-black;
+
+$radius-card: 0;
+$radius-icon: 0;
+$radius-button: 0;
+$radius-sticker: 2px;
+
+$border-thick: 3px;
+$shadow-offset: 4px;
+$shadow-hard: #{$shadow-offset} #{$shadow-offset} 0 $memphis-black;
+
+$font-display: 'Archivo Black', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+$font-pixel: 'Press Start 2P', monospace;
+$font-body: 'DM Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
 
 $grid-columns: 8;
 $grid-columns-mobile: 4;
 $grid-gap: 10px;
+$title-section-gap: 18px;
+$title-cards-gap: 18px;
+// 与 TitleBlock 标题区同步，用于宽屏侧栏头像与首张卡片顶对齐
+$title-block-font-size: 26px;
+$title-block-line-height: 1.1;
+$title-block-inner-gap: 4px;
+$title-block-squiggle-height: 12px;
+$bento-me-title-height:
+  $title-block-font-size * $title-block-line-height + $title-block-inner-gap +
+  $title-block-squiggle-height;
+$bento-first-card-offset: $bento-me-title-height + $title-cards-gap + $grid-gap;
 $grid-width-desktop: 700px;
 $grid-width-mobile: 350px;
 $grid-row-height: 87.5px;
@@ -27,11 +60,10 @@ $grid-cell-mobile: (
 $breakpoint-wide: 1239px;
 $breakpoint-mobile: 760px;
 $profile-width-wide: 375px;
-$profile-gap-wide: 100px;
 $profile-max-narrow: 630px;
 
 $block-padding-x: 12px;
 
 $avatar-size: 150px;
-$nickname-size: 37px;
-$description-size: 16px;
+$nickname-size: 32px;
+$description-size: 15px;
