@@ -1,0 +1,139 @@
+@use 'variables' as *;
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat($grid-columns, 1fr);
+  grid-template-rows:
+    $grid-row-height
+    $grid-cell-desktop
+    $grid-cell-desktop
+    $grid-row-height
+    repeat(4, $grid-row-height);
+  gap: $grid-gap;
+  width: 100%;
+  margin-top: 40px;
+
+  @media (min-width: $breakpoint-wide) {
+    margin-top: 0;
+  }
+}
+
+.bento-block {
+  min-height: 0;
+  min-width: 0;
+}
+
+.bento-block--title {
+  display: flex;
+  align-items: center;
+  padding: 0 $block-padding-x;
+
+  @media (min-width: $breakpoint-wide) {
+    align-items: flex-start;
+  }
+}
+
+.bento-block--card {
+  border-radius: $radius-card;
+  background-color: $color-card-bg;
+  outline: 1px solid $color-card-border;
+  outline-offset: -1px;
+  box-shadow: 0 1px 3px 1px rgb(84 84 84 / 6.7%);
+  transition: box-shadow 0.15s ease;
+  overflow: hidden;
+
+  &:hover {
+    box-shadow: 5px 5px 20px 1px rgb(0 0 0 / 6.7%);
+  }
+}
+
+// 桌面端：8 列网格坐标（与 jeff.ts layout 一致）
+.bento-block--title-me {
+  grid-column: 1 / span 8;
+  grid-row: 1;
+}
+
+.bento-block--afdian {
+  grid-column: 1 / span 2;
+  grid-row: 2 / span 2;
+}
+
+.bento-block--ld246 {
+  grid-column: 3 / span 2;
+  grid-row: 2 / span 2;
+}
+
+.bento-block--pipe {
+  grid-column: 5 / span 2;
+  grid-row: 2 / span 2;
+}
+
+.bento-block--title-os {
+  grid-column: 1 / span 8;
+  grid-row: 4;
+}
+
+.bento-block--github {
+  grid-column: 1 / span 4;
+  grid-row: 5 / span 4;
+}
+
+.bento-block--siyuan {
+  grid-column: 5 / span 4;
+  grid-row: 5 / span 2;
+}
+
+.bento-block--whisper {
+  grid-column: 5 / span 4;
+  grid-row: 7 / span 2;
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .bento-grid {
+    grid-template-columns: repeat($grid-columns-mobile, 1fr);
+    grid-template-rows: none;
+    grid-auto-rows: $grid-cell-mobile;
+  }
+
+  .bento-block--title-me {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  // Me：半宽正方形，一行两个
+  .bento-block--afdian {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 2;
+  }
+
+  .bento-block--ld246 {
+    grid-column: 3 / span 2;
+    grid-row: 2 / span 2;
+  }
+
+  .bento-block--pipe {
+    grid-column: 1 / span 2;
+    grid-row: 4 / span 2;
+  }
+
+  .bento-block--title-os {
+    grid-column: 1 / -1;
+    grid-row: 6;
+  }
+
+  // Open Source：全宽纵向堆叠
+  .bento-block--github {
+    grid-column: 1 / -1;
+    grid-row: 7 / span 4;
+  }
+
+  .bento-block--siyuan {
+    grid-column: 1 / -1;
+    grid-row: 11 / span 2;
+  }
+
+  .bento-block--whisper {
+    grid-column: 1 / -1;
+    grid-row: 13 / span 2;
+  }
+}
