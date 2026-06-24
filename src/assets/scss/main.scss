@@ -1,3 +1,4 @@
+@use 'fonts';
 @use 'variables' as *;
 
 *,
@@ -20,6 +21,7 @@ body {
   font-family: $font-body;
   background-color: $color-bg;
   color: $color-text;
+  cursor: default;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
   background-image:
@@ -50,6 +52,22 @@ a {
 
 #app {
   min-height: 100%;
+}
+
+// 字体加载期间保留页面背景与装饰，仅隐藏正文布局
+html.fonts-loading .space-view__layout {
+  opacity: 0;
+}
+
+html.fonts-ready .space-view__layout {
+  opacity: 1;
+  transition: opacity 0.12s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.fonts-ready .space-view__layout {
+    transition: none;
+  }
 }
 
 ::selection {

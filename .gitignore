@@ -15,6 +15,16 @@ dist-ssr
 # 构建 / 开发时由 scripts/fetch-github.mjs 生成
 src/data/github-contributions.json
 
+# 构建 / 开发时由 scripts/build-fonts.mjs 生成
+src/assets/fonts/
+src/assets/scss/_fonts.scss
+
+# 字体子集化下载缓存
+scripts/.font-cache/
+
+# 图片压缩缓存（开发时按原图哈希缓存，不修改源码）
+scripts/.image-cache/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

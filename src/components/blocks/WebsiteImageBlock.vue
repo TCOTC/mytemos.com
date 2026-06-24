@@ -61,7 +61,6 @@ const isGithub = computed(() => {
   height: 100%;
   padding: 14px 16px;
   color: inherit;
-  cursor: pointer;
   gap: 12px;
 }
 

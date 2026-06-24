@@ -1,6 +1,4 @@
 import {
-  BENTO_CELL_DESKTOP,
-  BENTO_CELL_MOBILE,
   BENTO_GRID_COLUMNS,
   BENTO_GRID_COLUMNS_MOBILE,
   BENTO_GRID_ROW_HEIGHT,
@@ -14,22 +12,21 @@ function resolveLayout(block: BioBlock, mobile: boolean): BlockLayout {
   return block.layout
 }
 
-function getRowTrackKind(block: BioBlock, mobile: boolean): RowTrackKind {
-  if (block.type === 'title') {
-    const layout = resolveLayout(block, mobile)
-    return !mobile || layout.y === 0 ? 'auto' : 'cell'
-  }
-
-  if (!mobile && block.type === 'website' && block.layout.w <= 2 && block.layout.h === 2) {
-    return 'cell'
-  }
-
-  return mobile ? 'cell' : 'standard'
+function isSquareWebsiteBlock(block: BioBlock, mobile: boolean): boolean {
+  if (block.type !== 'website') return false
+  const layout = resolveLayout(block, mobile)
+  return layout.w <= 2 && layout.h === 2
 }
 
-function rowTrackSize(kind: RowTrackKind, cellPx: number, standardPx: number): string {
-  if (kind === 'auto') return 'auto'
-  if (kind === 'cell') return `${cellPx}px`
+function getRowTrackKind(block: BioBlock, mobile: boolean): RowTrackKind {
+  if (block.type === 'title') return 'auto'
+  if (isSquareWebsiteBlock(block, mobile)) return 'cell'
+  return 'standard'
+}
+
+function rowTrackSize(kind: RowTrackKind, standardPx: number): string {
+  if (kind === 'auto') return 'var(--bento-title-row-height)'
+  if (kind === 'cell') return 'var(--bento-cell)'
   return `${standardPx}px`
 }
 
@@ -43,7 +40,6 @@ export function gridRowStyle(layout: BlockLayout): string {
 }
 
 export function buildGridRowTemplate(blocks: BioBlock[], mobile: boolean): string {
-  const cellPx = mobile ? BENTO_CELL_MOBILE : BENTO_CELL_DESKTOP
   const maxRow = Math.max(...blocks.map((block) => resolveLayout(block, mobile).y + resolveLayout(block, mobile).h))
   const tracks: string[] = []
 
@@ -57,7 +53,7 @@ export function buildGridRowTemplate(blocks: BioBlock[], mobile: boolean): strin
       })
 
     const kind = spanBlock ? getRowTrackKind(spanBlock, mobile) : 'standard'
-    tracks.push(rowTrackSize(kind, cellPx, BENTO_GRID_ROW_HEIGHT))
+    tracks.push(rowTrackSize(kind, BENTO_GRID_ROW_HEIGHT))
   }
 
   return tracks.join(' ')

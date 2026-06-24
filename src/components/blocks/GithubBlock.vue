@@ -1,44 +1,73 @@
 <script setup vapor lang="ts">
+import { computed } from 'vue'
 import { githubContributions as githubData } from '@/data/github'
+import { ui } from '@/data/content'
 import GithubIcon from '@/components/icons/GithubIcon.vue'
 import ContributionGraph from '@/components/blocks/ContributionGraph.vue'
+
+const metrics = computed(() => [
+  { key: 'repos', value: githubData.repos, label: ui.github.reposLabel },
+  { key: 'followers', value: githubData.followers, label: ui.github.followersLabel },
+  { key: 'following', value: githubData.following, label: ui.github.followingLabel },
+  { key: 'starred', value: githubData.starred, label: ui.github.starredLabel },
+  {
+    key: 'streak',
+    value: githubData.currentStreak,
+    label: ui.github.streakLabel,
+    suffix: ui.github.streakSuffix,
+  },
+])
 </script>
 
 <template>
   <a class="github-block" :href="githubData.href" target="_blank" rel="noopener noreferrer">
     <div class="github-block__top">
-      <div class="github-block__info">
+      <div class="github-block__header">
         <div class="github-block__brand">
           <div class="github-block__icon-wrap">
             <GithubIcon class="github-block__icon" />
           </div>
-          <span class="github-block__app-name">GitHub</span>
+          <span class="github-block__app-name">{{ ui.github.appName }}</span>
         </div>
-        <span class="github-block__username">{{ githubData.name }}</span>
-        <span class="github-block__stat">
-          仓库：<span class="github-block__stat-num">{{ githubData.repos }}</span>
-        </span>
-        <span class="github-block__stat">
-          粉丝：<span class="github-block__stat-num">{{ githubData.followers }}</span>
-        </span>
+        <span class="github-block__handle">{{ ui.github.loginPrefix }}{{ githubData.login }}</span>
       </div>
-      <div v-if="githubData.bio" class="github-block__aside">
-        <span class="github-block__bio">“{{ githubData.bio }}”</span>
+
+      <div class="github-block__summary">
+        <p v-if="githubData.bio" class="github-block__bio">
+          {{ ui.github.bioQuoteOpen }}{{ githubData.bio }}{{ ui.github.bioQuoteClose }}
+        </p>
+
+        <ul class="github-block__metrics">
+        <li
+          v-for="metric in metrics"
+          :key="metric.key"
+          class="github-block__metric"
+          :class="`github-block__metric--${metric.key}`"
+        >
+          <span class="github-block__metric-value">
+            {{ metric.value }}<span v-if="metric.suffix" class="github-block__metric-suffix">{{
+              metric.suffix
+            }}</span>
+          </span>
+          <span class="github-block__metric-label">{{ metric.label }}</span>
+        </li>
+        </ul>
       </div>
     </div>
+
     <div class="github-block__graph">
       <div class="github-block__graph-header">
         <p class="github-block__graph-title">
-          {{ githubData.totalContributions }} contributions in the last year
+          {{ githubData.totalContributions }} {{ ui.github.contributionsSuffix }}
         </p>
         <div class="github-block__legend" aria-hidden="true">
-          <span class="github-block__legend-label">Less</span>
+          <span class="github-block__legend-label">{{ ui.github.less }}</span>
           <span class="github-block__legend-cell" />
           <span class="github-block__legend-cell github-block__legend-cell--1" />
           <span class="github-block__legend-cell github-block__legend-cell--2" />
           <span class="github-block__legend-cell github-block__legend-cell--3" />
           <span class="github-block__legend-cell github-block__legend-cell--4" />
-          <span class="github-block__legend-label">More</span>
+          <span class="github-block__legend-label">{{ ui.github.more }}</span>
         </div>
       </div>
       <ContributionGraph :weeks="githubData.weeks" />
@@ -56,27 +85,33 @@ import ContributionGraph from '@/components/blocks/ContributionGraph.vue'
   height: 100%;
   padding: 14px 16px;
   color: inherit;
-  cursor: pointer;
 }
 
 .github-block__top {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 8px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.github-block__info {
+.github-block__summary {
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.github-block__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .github-block__brand {
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 10px;
+  min-width: 0;
 }
 
 .github-block__icon-wrap {
@@ -98,55 +133,90 @@ import ContributionGraph from '@/components/blocks/ContributionGraph.vue'
   font-size: 16px;
   line-height: 1.15;
   color: $color-text;
-  text-transform: uppercase;
   letter-spacing: 0.04em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.github-block__username {
-  margin-top: 10px;
+.github-block__handle {
+  flex-shrink: 0;
   font-family: $font-pixel;
   font-size: 7px;
   line-height: 1.6;
-  color: $color-text-secondary;
-}
-
-.github-block__stat {
-  margin-top: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.3;
-  color: $color-text-secondary;
-}
-
-.github-block__stat-num {
-  font-weight: 700;
-  color: $color-text;
-}
-
-.github-block__aside {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  flex-shrink: 0;
+  color: $memphis-purple;
 }
 
 .github-block__bio {
-  max-width: 120px;
-  font-size: 13px;
-  line-height: 1.4;
-  color: $color-text-body;
-  text-align: right;
+  margin: 0;
+  width: fit-content;
+  max-width: 100%;
+  font-size: 12px;
+  font-weight: 500;
   font-style: italic;
+  line-height: 1.45;
+  color: $color-text-muted;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 2;
   overflow: hidden;
-  padding: 4px 6px;
-  background: rgb(255 255 255 / 60%);
-  border-left: 3px solid $memphis-pink;
+  background: linear-gradient(180deg, transparent 58%, rgb(0 229 255 / 26%) 58%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.github-block__metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.github-block__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 44px;
+  min-width: 0;
+  padding: 4px 2px;
+  background: rgb(255 255 255 / 70%);
+  @include pixel-border(2px);
+}
+
+.github-block__metric-value {
+  font-family: $font-display;
+  font-size: 13px;
+  line-height: 1.1;
+  color: $color-text;
+  white-space: nowrap;
+}
+
+.github-block__metric-suffix {
+  margin-left: 1px;
+  font-family: $font-body;
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.github-block__metric-label {
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: $color-text-secondary;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.github-block__metric--streak {
+  background: rgb(191 255 0 / 22%);
+
+  .github-block__metric-value {
+    color: #2d6b1f;
+  }
 }
 
 .github-block__graph {
@@ -173,7 +243,6 @@ import ContributionGraph from '@/components/blocks/ContributionGraph.vue'
   font-size: 6px;
   line-height: 1.6;
   color: $color-text-subtle;
-  text-transform: uppercase;
 }
 
 .github-block__legend {
@@ -211,6 +280,21 @@ import ContributionGraph from '@/components/blocks/ContributionGraph.vue'
   &--4 {
     background-color: #216e39;
     border-color: #216e39;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .github-block__metric {
+    min-height: 36px;
+    padding: 3px 1px;
+  }
+
+  .github-block__metric-value {
+    font-size: 10px;
+  }
+
+  .github-block__metric-label {
+    font-size: 7px;
   }
 }
 </style>

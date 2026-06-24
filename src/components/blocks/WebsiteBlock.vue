@@ -49,7 +49,6 @@ const isGithub = computed(() => {
   height: 100%;
   padding: 14px 16px;
   color: inherit;
-  cursor: pointer;
 }
 
 .website-block__favicon {

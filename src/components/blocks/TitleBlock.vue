@@ -1,5 +1,6 @@
 <script setup vapor lang="ts">
 import type { BioBlock } from '@/types/bio'
+import { ui } from '@/data/content'
 
 type TitleBlockData = Extract<BioBlock, { type: 'title' }>
 
@@ -10,7 +11,7 @@ defineProps<{
 
 <template>
   <div class="title-block">
-    <h2 class="title-block__text">{{ String(block.content.text) }}</h2>
+    <h2 class="title-block__text">{{ block.content.text }}</h2>
     <svg class="title-block__squiggle" viewBox="0 0 120 12" aria-hidden="true">
       <path
         d="M2 8 C 20 2, 40 10, 60 6 S 100 2, 118 8"
@@ -20,7 +21,7 @@ defineProps<{
         stroke-linecap="round"
       />
     </svg>
-    <span class="title-block__deco" aria-hidden="true">///</span>
+    <span class="title-block__deco" aria-hidden="true">{{ ui.titleDeco }}</span>
   </div>
 </template>
 
@@ -42,11 +43,12 @@ defineProps<{
   font-weight: 400;
   line-height: $title-block-line-height;
   color: $color-text;
-  text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
 .title-block__squiggle {
+  display: block;
+  flex-shrink: 0;
   width: 100px;
   height: $title-block-squiggle-height;
   color: var(--title-accent, $memphis-pink);

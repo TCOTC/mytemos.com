@@ -21,7 +21,7 @@ const LEVEL_MAP = {
 }
 
 const QUERY =
-  'query ($login: String!) { user(login: $login) { login name bio followers { totalCount } repositories(ownerAffiliations: OWNER) { totalCount } contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount contributionLevel } } } } } }'
+  'query ($login: String!) { user(login: $login) { login bio followers { totalCount } following { totalCount } starredRepositories { totalCount } repositories(ownerAffiliations: OWNER) { totalCount } contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount contributionLevel } } } } } }'
 
 function mapWeeks(weeks) {
   return weeks.map((week) => ({
@@ -33,19 +33,56 @@ function mapWeeks(weeks) {
   }))
 }
 
+function prevCalendarDay(dateStr) {
+  const date = new Date(`${dateStr}T00:00:00`)
+  date.setDate(date.getDate() - 1)
+  return date.toISOString().slice(0, 10)
+}
+
+function computeCurrentStreak(weeks) {
+  const counts = new Map()
+
+  for (const week of weeks) {
+    for (const day of week.contributionDays) {
+      counts.set(day.date, day.contributionCount)
+    }
+  }
+
+  if (!counts.size) return 0
+
+  const today = new Date().toISOString().slice(0, 10)
+  let cursor = today
+
+  if ((counts.get(today) ?? 0) === 0) {
+    cursor = prevCalendarDay(today)
+  }
+
+  let streak = 0
+  while ((counts.get(cursor) ?? 0) > 0) {
+    streak++
+    cursor = prevCalendarDay(cursor)
+  }
+
+  return streak
+}
+
 function buildContributions(user) {
   if (!user) {
     throw new Error(`GitHub 用户不存在: ${USERNAME}`)
   }
 
   const calendar = user.contributionsCollection.contributionCalendar
-  const weeks = mapWeeks(calendar.weeks).slice(-VISIBLE_WEEKS)
+  const allWeeks = mapWeeks(calendar.weeks)
+  const weeks = allWeeks.slice(-VISIBLE_WEEKS)
 
   return {
-    name: user.name ?? user.login,
+    login: user.login,
     bio: user.bio ?? '',
     followers: user.followers.totalCount,
+    following: user.following.totalCount,
     repos: user.repositories.totalCount,
+    starred: user.starredRepositories.totalCount,
+    currentStreak: computeCurrentStreak(calendar.weeks),
     totalContributions: calendar.totalContributions,
     href: `https://github.com/${user.login}`,
     weeks,
@@ -138,5 +175,5 @@ async function fetchGithubContributions() {
 const data = await fetchGithubContributions()
 writeFileSync(OUTPUT, `${JSON.stringify(data)}\n`, 'utf8')
 console.log(
-  `已写入 ${OUTPUT} — ${data.name}: ${data.totalContributions} contributions, ${data.weeks.length} weeks`,
+  `已写入 ${OUTPUT} — @${data.login}: ${data.totalContributions} contributions, streak ${data.currentStreak}, ${data.weeks.length} weeks`,
 )

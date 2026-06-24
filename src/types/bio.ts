@@ -25,10 +25,21 @@ interface BioBlockBase {
   sectionGap?: boolean
 }
 
+export interface WebsiteContent {
+  title: string
+  url: string
+  href?: string
+  favicon: string
+}
+
+export interface WebsiteImageContent extends WebsiteContent {
+  image: string
+}
+
 export type BioBlock =
   | (BioBlockBase & { type: 'title'; content: { text: string } })
-  | (BioBlockBase & { type: 'website'; content: Record<string, unknown> })
-  | (BioBlockBase & { type: 'website-image'; content: Record<string, unknown> })
+  | (BioBlockBase & { type: 'website'; content: WebsiteContent })
+  | (BioBlockBase & { type: 'website-image'; content: WebsiteImageContent })
   | (BioBlockBase & { type: 'github' })
 
 export interface UserProfile {

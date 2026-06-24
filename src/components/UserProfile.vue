@@ -1,22 +1,46 @@
 <script setup vapor lang="ts">
+import { ref } from 'vue'
 import type { UserProfile } from '@/types/bio'
+import { ui } from '@/data/content'
 
 defineProps<{
   profile: UserProfile
 }>()
+
+const avatarSpinning = ref(false)
+
+function spinAvatar() {
+  avatarSpinning.value = false
+  requestAnimationFrame(() => {
+    avatarSpinning.value = true
+  })
+}
+
+function onAvatarSpinEnd() {
+  avatarSpinning.value = false
+}
 </script>
 
 <template>
   <section class="user-profile">
+    <div class="user-profile__bento-align" aria-hidden="true" />
+
     <div class="user-profile__avatar-wrap">
-      <img
-        class="user-profile__avatar"
-        :src="profile.avatar"
-        :alt="profile.nickname"
-        width="150"
-        height="150"
-      />
-      <span class="user-profile__avatar-badge" aria-hidden="true">ONLINE</span>
+      <span
+        class="user-profile__avatar-frame"
+        :class="{ 'user-profile__avatar-frame--spinning': avatarSpinning }"
+        @click="spinAvatar"
+        @animationend="onAvatarSpinEnd"
+      >
+        <img
+          class="user-profile__avatar"
+          :src="profile.avatar"
+          :alt="profile.nickname"
+          width="150"
+          height="150"
+        />
+      </span>
+      <span class="user-profile__avatar-badge" aria-hidden="true">{{ ui.online }}</span>
     </div>
 
     <h1 class="user-profile__nickname">
@@ -38,20 +62,82 @@ defineProps<{
   flex-direction: column;
 }
 
+.user-profile__bento-align {
+  display: none;
+}
+
+@media (min-width: $breakpoint-wide) {
+  .user-profile__bento-align {
+    display: block;
+    flex-shrink: 0;
+    height: $bento-avatar-align-height;
+  }
+}
+
 .user-profile__avatar-wrap {
   position: relative;
   width: fit-content;
 }
 
-.user-profile__avatar {
+@keyframes user-profile-avatar-wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  20% {
+    transform: rotate(-12deg);
+  }
+
+  40% {
+    transform: rotate(12deg);
+  }
+
+  60% {
+    transform: rotate(-8deg);
+  }
+
+  80% {
+    transform: rotate(8deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.user-profile__avatar-frame {
+  display: block;
   width: $avatar-size;
   height: $avatar-size;
-  border-radius: 0;
-  object-fit: cover;
-  image-rendering: pixelated;
+  overflow: hidden;
+  transform-origin: center center;
   @include pixel-border(4px);
   @include hard-shadow($memphis-pink, 6px, 6px);
   background: $memphis-yellow;
+
+  &--spinning {
+    animation: user-profile-avatar-wiggle 0.55s ease-in-out;
+    backface-visibility: hidden;
+
+    .user-profile__avatar {
+      image-rendering: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &--spinning {
+      animation: none;
+    }
+  }
+}
+
+.user-profile__avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  object-fit: cover;
+  image-rendering: pixelated;
 }
 
 .user-profile__avatar-badge {

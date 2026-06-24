@@ -1,6 +1,8 @@
 <script setup vapor lang="ts">
 import { computed } from 'vue'
 import { GITHUB_VISIBLE_WEEKS } from '@/constants/github'
+import { ui } from '@/data/content'
+import { formatTemplate } from '@/utils/format'
 import type { ContributionWeek } from '@/types/github'
 
 const props = withDefaults(
@@ -38,7 +40,7 @@ const monthLabels = computed(() => {
 
       seen.add(key)
       labels.push({
-        month: date.toLocaleString('en-US', { month: 'short' }),
+        month: ui.graph.months[date.getMonth()] ?? '',
         index,
       })
       break
@@ -47,6 +49,10 @@ const monthLabels = computed(() => {
 
   return labels
 })
+
+function cellTitle(date: string, count: number) {
+  return formatTemplate(ui.graph.cellTitle, { date, count })
+}
 </script>
 
 <template>
@@ -63,13 +69,7 @@ const monthLabels = computed(() => {
     </div>
     <div class="contribution-graph__body">
       <div class="contribution-graph__days">
-        <span />
-        <span>Mon</span>
-        <span />
-        <span>Wed</span>
-        <span />
-        <span>Fri</span>
-        <span />
+        <span v-for="(day, index) in ui.graph.dayLabels" :key="index">{{ day }}</span>
       </div>
       <div class="contribution-graph__grid">
         <div
@@ -82,7 +82,7 @@ const monthLabels = computed(() => {
             :key="day.date"
             class="contribution-graph__cell"
             :class="`contribution-graph__cell--${day.level}`"
-            :title="`${day.date}: ${day.count} contributions`"
+            :title="cellTitle(day.date, day.count)"
           />
         </div>
       </div>

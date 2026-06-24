@@ -35,7 +35,9 @@ $grid-columns-mobile: 4;
 $grid-gap: 10px;
 $title-section-gap: 18px;
 $title-cards-gap: 18px;
-// 与 TitleBlock 标题区同步，用于宽屏侧栏头像与首张卡片顶对齐
+$space-view-padding-top: 40px;
+$space-view-padding-top-wide: 54px;
+// 与 TitleBlock 标题区同步，用于宽屏侧栏头像与首张 bento 卡片顶对齐
 $title-block-font-size: 26px;
 $title-block-line-height: 1.1;
 $title-block-inner-gap: 4px;
@@ -43,7 +45,10 @@ $title-block-squiggle-height: 12px;
 $bento-me-title-height:
   $title-block-font-size * $title-block-line-height + $title-block-inner-gap +
   $title-block-squiggle-height;
-$bento-first-card-offset: $bento-me-title-height + $title-cards-gap + $grid-gap;
+// 标题行 track = 标题内容 + 与下方卡片的间距（margin-bottom）
+$bento-title-row-height: $bento-me-title-height + $title-cards-gap;
+// 侧栏占位 = 标题行 + 网格行间距，与首张卡片顶对齐
+$bento-avatar-align-height: $bento-title-row-height + $grid-gap;
 $grid-width-desktop: 700px;
 $grid-width-mobile: 350px;
 $grid-row-height: 87.5px;

@@ -7,7 +7,12 @@
   grid-template-rows: var(--bento-grid-rows);
   gap: $grid-gap;
   width: 100%;
+  --bento-title-row-height: #{$bento-title-row-height};
   margin-top: 40px;
+  --bento-cell: min(
+    calc((100% - (#{$grid-columns - 1} * #{$grid-gap})) / #{$grid-columns}),
+    #{$grid-cell-desktop}
+  );
 
   @media (min-width: $breakpoint-wide) {
     margin-top: 0;
@@ -16,6 +21,12 @@
   @media (max-width: $breakpoint-mobile) {
     grid-template-columns: repeat(var(--bento-columns-mobile, #{$grid-columns-mobile}), 1fr);
     grid-template-rows: var(--bento-grid-rows-mobile);
+    --bento-cell: min(
+      calc(
+        (100% - (#{$grid-columns-mobile - 1} * #{$grid-gap})) / #{$grid-columns-mobile}
+      ),
+      #{$grid-cell-mobile}
+    );
   }
 }
 
@@ -34,6 +45,8 @@
 .bento-block--title {
   display: flex;
   align-items: flex-start;
+  // 覆盖 .bento-block 的 min-height: 0，避免 auto 行高被压扁导致与侧栏对齐偏移
+  min-height: min-content;
   padding: 0 $block-padding-x;
   margin-bottom: $title-cards-gap;
 }

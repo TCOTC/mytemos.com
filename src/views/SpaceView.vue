@@ -145,7 +145,7 @@ defineProps<{
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 40px;
+  padding-top: $space-view-padding-top;
   padding-bottom: 40px;
 }
 
@@ -164,20 +164,16 @@ defineProps<{
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 40px;
+    padding-top: $space-view-padding-top-wide;
     padding-bottom: 0;
   }
 
   .space-view__sidebar {
     width: $profile-width-wide;
     position: sticky;
-    top: 40px;
+    top: $space-view-padding-top-wide;
     flex-shrink: 0;
     align-self: flex-start;
-
-    :deep(.user-profile__avatar-wrap) {
-      margin-top: $bento-first-card-offset;
-    }
   }
 
   .space-view__main {

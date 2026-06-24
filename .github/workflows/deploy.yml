@@ -26,6 +26,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Install fonttools
+        run: pip3 install fonttools brotli
+
       - name: Build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
