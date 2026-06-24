@@ -1,4 +1,4 @@
-<script setup vapor lang="ts">
+<script setup lang="ts">
 import type { SpaceProfile } from '@/types/block'
 import UserProfile from '@/components/profile/UserProfile.vue'
 import BlockGrid from '@/components/block/BlockGrid.vue'

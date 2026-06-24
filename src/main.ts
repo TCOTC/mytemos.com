@@ -1,4 +1,4 @@
-import { createVaporApp } from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import avatarUrl from '@/assets/images/avatar.png'
 import { applyCircularFavicon } from '@/utils/favicon'
@@ -7,5 +7,5 @@ import '@/assets/scss/main.scss'
 
 void applyCircularFavicon(avatarUrl)
 
-createVaporApp(App).mount('#app')
+createApp(App).mount('#app')
 revealWhenFontsReady()

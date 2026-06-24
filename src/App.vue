@@ -1,4 +1,4 @@
-<script setup vapor lang="ts">
+<script setup lang="ts">
 import SpaceView from '@/views/SpaceView.vue'
 import { spaceProfile } from '@/data/content'
 </script>

@@ -1,4 +1,4 @@
-<script setup vapor lang="ts">
+<script setup lang="ts">
 import type { Block } from '@/types/block'
 import { ui } from '@/data/content'
 

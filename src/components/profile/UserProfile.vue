@@ -1,4 +1,4 @@
-<script setup vapor lang="ts">
+<script setup lang="ts">
 import { ref } from 'vue'
 import type { ProfileData } from '@/types/block'
 import { ui } from '@/data/content'

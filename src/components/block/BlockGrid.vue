@@ -1,4 +1,4 @@
-<script setup vapor lang="ts">
+<script setup lang="ts">
 import type { Block } from '@/types/block'
 import BlockRenderer from '@/components/block/BlockRenderer.vue'
 import { blockPlacementStyle, blockThemeStyle, gridContainerStyle } from '@/utils/block-grid'

@@ -1,4 +1,4 @@
-<script setup vapor lang="ts">
+<script setup lang="ts">
 import { computed } from 'vue'
 import { githubContributions } from '@/data/github'
 import { ui } from '@/data/content'

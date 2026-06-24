@@ -1,4 +1,4 @@
-<script setup vapor lang="ts">
+<script setup lang="ts">
 import { computed } from 'vue'
 import type { Block } from '@/types/block'
 import { useWebsiteLink } from '@/composables/use-website-link'
