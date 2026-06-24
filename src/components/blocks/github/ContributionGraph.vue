@@ -92,6 +92,7 @@ function cellTitle(date: string, count: number) {
 
 <style scoped lang="scss">
 @use '@/assets/scss/variables' as *;
+@use '@/assets/scss/mixins' as *;
 
 .contribution-graph {
   width: 100%;
@@ -146,29 +147,19 @@ function cellTitle(date: string, count: number) {
   height: 9px;
   border-radius: 0;
   border: 1px solid rgb(26 26 46 / 12%);
-  // 空档：浅灰底
-  background-color: #ebedf0;
   image-rendering: pixelated;
+  @include contribution-level-colors;
 
-  // 由浅到深的绿色梯度，贡献越多颜色越深
   &--1 {
-    background-color: #9be9a8;
     border-color: rgb(26 26 46 / 15%);
   }
 
   &--2 {
-    background-color: #40c463;
     border-color: rgb(26 26 46 / 18%);
   }
 
   &--3 {
-    background-color: #30a14e;
     border-color: rgb(26 26 46 / 22%);
-  }
-
-  &--4 {
-    background-color: #216e39;
-    border-color: #216e39;
   }
 }
 </style>

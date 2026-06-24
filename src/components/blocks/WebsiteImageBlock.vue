@@ -1,35 +1,25 @@
 <script setup vapor lang="ts">
 import { computed } from 'vue'
-import type { BioBlock } from '@/types/bio'
-import GithubIcon from '@/components/icons/GithubIcon.vue'
+import type { Block } from '@/types/block'
+import { useWebsiteLink } from '@/composables/use-website-link'
+import { githubIcon } from '@/data/assets'
 
-type WebsiteImageBlockData = Extract<BioBlock, { type: 'website-image' }>
+type WebsiteImageBlockData = Extract<Block, { type: 'website-image' }>
 
 const props = defineProps<{
   block: WebsiteImageBlockData
 }>()
 
-const href = String(props.block.content.href ?? `https://${props.block.content.url}`)
-
-const isGithub = computed(() => {
-  try {
-    return new URL(href).hostname === 'github.com'
-  } catch {
-    return String(props.block.content.url) === 'github.com'
-  }
-})
+const content = computed(() => props.block.content)
+const { href, isGitHub } = useWebsiteLink(content)
 </script>
 
 <template>
   <a class="website-image-block" :href="href" target="_blank" rel="noopener noreferrer">
     <div class="website-image-block__content">
-      <div v-if="isGithub" class="website-image-block__favicon website-image-block__favicon--github">
-        <GithubIcon />
-      </div>
       <img
-        v-else
         class="website-image-block__favicon"
-        :src="String(block.content.favicon)"
+        :src="isGitHub ? githubIcon : String(block.content.favicon)"
         :alt="String(block.content.title)"
         width="35"
         height="35"
@@ -83,18 +73,6 @@ const isGithub = computed(() => {
   image-rendering: pixelated;
 }
 
-.website-image-block__favicon--github {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-
-  svg {
-    width: 100%;
-    height: 100%;
-  }
-}
-
 .website-image-block__title {
   margin-top: 10px;
   font-size: 14px;
@@ -104,6 +82,7 @@ const isGithub = computed(() => {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
   word-break: break-all;
 }

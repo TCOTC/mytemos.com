@@ -1,34 +1,24 @@
 <script setup vapor lang="ts">
 import { computed } from 'vue'
-import type { BioBlock } from '@/types/bio'
-import GithubIcon from '@/components/icons/GithubIcon.vue'
+import type { Block } from '@/types/block'
+import { useWebsiteLink } from '@/composables/use-website-link'
+import { githubIcon } from '@/data/assets'
 
-type WebsiteBlockData = Extract<BioBlock, { type: 'website' }>
+type WebsiteBlockData = Extract<Block, { type: 'website' }>
 
 const props = defineProps<{
   block: WebsiteBlockData
 }>()
 
-const href = String(props.block.content.href ?? `https://${props.block.content.url}`)
-
-const isGithub = computed(() => {
-  try {
-    return new URL(href).hostname === 'github.com'
-  } catch {
-    return String(props.block.content.url) === 'github.com'
-  }
-})
+const content = computed(() => props.block.content)
+const { href, isGitHub } = useWebsiteLink(content)
 </script>
 
 <template>
   <a class="website-block" :href="href" target="_blank" rel="noopener noreferrer">
-    <div v-if="isGithub" class="website-block__favicon website-block__favicon--github">
-      <GithubIcon />
-    </div>
     <img
-      v-else
       class="website-block__favicon"
-      :src="String(block.content.favicon)"
+      :src="isGitHub ? githubIcon : String(block.content.favicon)"
       :alt="String(block.content.title)"
       width="35"
       height="35"
@@ -59,18 +49,6 @@ const isGithub = computed(() => {
   @include pixel-border(2px);
   background: #fff;
   image-rendering: pixelated;
-}
-
-.website-block__favicon--github {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-
-  svg {
-    width: 100%;
-    height: 100%;
-  }
 }
 
 .website-block__title {

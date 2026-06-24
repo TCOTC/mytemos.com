@@ -8,7 +8,7 @@ export interface ContributionWeek {
   days: ContributionDay[]
 }
 
-export interface GithubContributions {
+export interface GitHubContributions {
   login: string
   bio: string
   followers: number

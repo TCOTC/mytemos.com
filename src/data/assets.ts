@@ -1,4 +1,4 @@
-const imageModules = import.meta.glob('../assets/images/jeff/*', {
+const imageModules = import.meta.glob('../assets/images/*', {
   eager: true,
   import: 'default',
 }) as Record<string, string>
@@ -11,3 +11,6 @@ export function resolveImage(logicalPath: string): string {
   const entry = Object.entries(imageModules).find(([path]) => path.endsWith(`/${filename}`))
   return entry?.[1] ?? logicalPath
 }
+
+/** GitHub favicon，用于 GitHub 链接卡片与 GitHub 块 */
+export const githubIcon = resolveImage('/images/github-icon.svg')

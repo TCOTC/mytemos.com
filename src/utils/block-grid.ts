@@ -1,32 +1,32 @@
 import {
-  BENTO_GRID_COLUMNS,
-  BENTO_GRID_COLUMNS_MOBILE,
-  BENTO_GRID_ROW_HEIGHT,
-} from '@/constants/bento'
-import type { BioBlock, BlockLayout, BlockTheme } from '@/types/bio'
+  BLOCK_GRID_COLUMNS,
+  BLOCK_GRID_COLUMNS_MOBILE,
+  BLOCK_GRID_ROW_HEIGHT,
+} from '@/constants/block-grid'
+import type { Block, BlockLayout, BlockTheme } from '@/types/block'
 
 type RowTrackKind = 'auto' | 'cell' | 'standard'
 
-function resolveLayout(block: BioBlock, mobile: boolean): BlockLayout {
+function resolveLayout(block: Block, mobile: boolean): BlockLayout {
   if (mobile && block.layoutMobile) return block.layoutMobile
   return block.layout
 }
 
-function isSquareWebsiteBlock(block: BioBlock, mobile: boolean): boolean {
+function isSquareWebsiteBlock(block: Block, mobile: boolean): boolean {
   if (block.type !== 'website') return false
   const layout = resolveLayout(block, mobile)
   return layout.w <= 2 && layout.h === 2
 }
 
-function getRowTrackKind(block: BioBlock, mobile: boolean): RowTrackKind {
+function getRowTrackKind(block: Block, mobile: boolean): RowTrackKind {
   if (block.type === 'title') return 'auto'
   if (isSquareWebsiteBlock(block, mobile)) return 'cell'
   return 'standard'
 }
 
 function rowTrackSize(kind: RowTrackKind, standardPx: number): string {
-  if (kind === 'auto') return 'var(--bento-title-row-height)'
-  if (kind === 'cell') return 'var(--bento-cell)'
+  if (kind === 'auto') return 'var(--block-grid-title-row-height)'
+  if (kind === 'cell') return 'var(--block-grid-cell)'
   return `${standardPx}px`
 }
 
@@ -39,7 +39,7 @@ export function gridRowStyle(layout: BlockLayout): string {
   return `${layout.y + 1} / span ${layout.h}`
 }
 
-export function buildGridRowTemplate(blocks: BioBlock[], mobile: boolean): string {
+export function buildGridRowTemplate(blocks: Block[], mobile: boolean): string {
   const maxRow = Math.max(...blocks.map((block) => resolveLayout(block, mobile).y + resolveLayout(block, mobile).h))
   const tracks: string[] = []
 
@@ -53,20 +53,20 @@ export function buildGridRowTemplate(blocks: BioBlock[], mobile: boolean): strin
       })
 
     const kind = spanBlock ? getRowTrackKind(spanBlock, mobile) : 'standard'
-    tracks.push(rowTrackSize(kind, BENTO_GRID_ROW_HEIGHT))
+    tracks.push(rowTrackSize(kind, BLOCK_GRID_ROW_HEIGHT))
   }
 
   return tracks.join(' ')
 }
 
-export function blockPlacementStyle(block: BioBlock): Record<string, string> {
+export function blockPlacementStyle(block: Block): Record<string, string> {
   const mobileLayout = block.layoutMobile ?? block.layout
 
   return {
-    '--grid-col': gridColumnStyle(block.layout, BENTO_GRID_COLUMNS),
-    '--grid-row': gridRowStyle(block.layout),
-    '--grid-col-mobile': gridColumnStyle(mobileLayout, BENTO_GRID_COLUMNS_MOBILE),
-    '--grid-row-mobile': gridRowStyle(mobileLayout),
+    '--block-grid-col': gridColumnStyle(block.layout, BLOCK_GRID_COLUMNS),
+    '--block-grid-row': gridRowStyle(block.layout),
+    '--block-grid-col-mobile': gridColumnStyle(mobileLayout, BLOCK_GRID_COLUMNS_MOBILE),
+    '--block-grid-row-mobile': gridRowStyle(mobileLayout),
   }
 }
 
@@ -85,11 +85,11 @@ export function blockThemeStyle(theme?: BlockTheme): Record<string, string> {
   return style
 }
 
-export function gridContainerStyle(blocks: BioBlock[]): Record<string, string> {
+export function gridContainerStyle(blocks: Block[]): Record<string, string> {
   return {
-    '--bento-grid-rows': buildGridRowTemplate(blocks, false),
-    '--bento-grid-rows-mobile': buildGridRowTemplate(blocks, true),
-    '--bento-columns': String(BENTO_GRID_COLUMNS),
-    '--bento-columns-mobile': String(BENTO_GRID_COLUMNS_MOBILE),
+    '--block-grid-rows': buildGridRowTemplate(blocks, false),
+    '--block-grid-rows-mobile': buildGridRowTemplate(blocks, true),
+    '--block-grid-columns': String(BLOCK_GRID_COLUMNS),
+    '--block-grid-columns-mobile': String(BLOCK_GRID_COLUMNS_MOBILE),
   }
 }

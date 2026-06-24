@@ -25,6 +25,27 @@
   box-shadow: 2px 2px 0 $memphis-black;
 }
 
+@mixin contribution-level-colors {
+  background-color: $contrib-level-0;
+
+  &--1 {
+    background-color: $contrib-level-1;
+  }
+
+  &--2 {
+    background-color: $contrib-level-2;
+  }
+
+  &--3 {
+    background-color: $contrib-level-3;
+  }
+
+  &--4 {
+    background-color: $contrib-level-4;
+    border-color: $contrib-level-4;
+  }
+}
+
 @mixin memphis-card-base {
   @include pixel-border;
   @include hard-shadow;

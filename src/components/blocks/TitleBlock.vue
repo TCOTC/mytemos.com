@@ -1,8 +1,8 @@
 <script setup vapor lang="ts">
-import type { BioBlock } from '@/types/bio'
+import type { Block } from '@/types/block'
 import { ui } from '@/data/content'
 
-type TitleBlockData = Extract<BioBlock, { type: 'title' }>
+type TitleBlockData = Extract<Block, { type: 'title' }>
 
 defineProps<{
   block: TitleBlockData

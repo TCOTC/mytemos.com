@@ -1,4 +1,4 @@
-import type { GithubContributions } from '@/types/github'
+import type { GitHubContributions } from '@/types/github'
 import raw from './github-contributions.json'
 
-export const githubContributions = raw as GithubContributions
+export const githubContributions = raw as GitHubContributions

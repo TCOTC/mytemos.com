@@ -1,15 +1,15 @@
 @use 'variables' as *;
 @use 'mixins' as *;
 
-.bento-grid {
+.block-grid {
   display: grid;
-  grid-template-columns: repeat(var(--bento-columns, #{$grid-columns}), 1fr);
-  grid-template-rows: var(--bento-grid-rows);
+  grid-template-columns: repeat(var(--block-grid-columns, #{$grid-columns}), 1fr);
+  grid-template-rows: var(--block-grid-rows);
   gap: $grid-gap;
   width: 100%;
-  --bento-title-row-height: #{$bento-title-row-height};
+  --block-grid-title-row-height: #{$block-grid-title-row-height};
   margin-top: 40px;
-  --bento-cell: min(
+  --block-grid-cell: min(
     calc((100% - (#{$grid-columns - 1} * #{$grid-gap})) / #{$grid-columns}),
     #{$grid-cell-desktop}
   );
@@ -19,9 +19,9 @@
   }
 
   @media (max-width: $breakpoint-mobile) {
-    grid-template-columns: repeat(var(--bento-columns-mobile, #{$grid-columns-mobile}), 1fr);
-    grid-template-rows: var(--bento-grid-rows-mobile);
-    --bento-cell: min(
+    grid-template-columns: repeat(var(--block-grid-columns-mobile, #{$grid-columns-mobile}), 1fr);
+    grid-template-rows: var(--block-grid-rows-mobile);
+    --block-grid-cell: min(
       calc(
         (100% - (#{$grid-columns-mobile - 1} * #{$grid-gap})) / #{$grid-columns-mobile}
       ),
@@ -30,33 +30,33 @@
   }
 }
 
-.bento-block {
+.block-grid__item {
   min-height: 0;
   min-width: 0;
-  grid-column: var(--grid-col);
-  grid-row: var(--grid-row);
+  grid-column: var(--block-grid-col);
+  grid-row: var(--block-grid-row);
 
   @media (max-width: $breakpoint-mobile) {
-    grid-column: var(--grid-col-mobile);
-    grid-row: var(--grid-row-mobile);
+    grid-column: var(--block-grid-col-mobile);
+    grid-row: var(--block-grid-row-mobile);
   }
 }
 
-.bento-block--title {
+.block-grid__item--title {
   display: flex;
   align-items: flex-start;
-  // 覆盖 .bento-block 的 min-height: 0，避免 auto 行高被压扁导致与侧栏对齐偏移
+  // 覆盖 .block-grid__item 的 min-height: 0，避免 auto 行高被压扁导致与侧栏对齐偏移
   min-height: min-content;
   padding: 0 $block-padding-x;
   margin-bottom: $title-cards-gap;
 }
 
 // 仅拉开与上方卡片的距离，不影响标题与下方卡片的间距
-.bento-block--section-gap {
+.block-grid__item--section-gap {
   margin-top: $title-section-gap;
 }
 
-.bento-block--card {
+.block-grid__item--card {
   @include memphis-card-base;
   overflow: hidden;
 

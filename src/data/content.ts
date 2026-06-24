@@ -1,4 +1,4 @@
-import type { BioBlock, SpaceProfile } from '@/types/bio'
+import type { Block, SpaceProfile } from '@/types/block'
 import type { SiteContent } from '@/types/content'
 import { resolveImage } from '@/data/assets'
 import raw from './content.json'
@@ -12,7 +12,7 @@ export const spaceProfile: SpaceProfile = {
   blocks,
 }
 
-function applyBlockImages(block: BioBlock): BioBlock {
+function applyBlockImages(block: Block): Block {
   if (block.type === 'github' || block.type === 'title') return block
 
   if (block.type === 'website') {

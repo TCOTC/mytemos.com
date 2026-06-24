@@ -1,7 +1,7 @@
 <script setup vapor lang="ts">
-import type { SpaceProfile } from '@/types/bio'
-import UserProfile from '@/components/UserProfile.vue'
-import BentoGrid from '@/components/BentoGrid.vue'
+import type { SpaceProfile } from '@/types/block'
+import UserProfile from '@/components/profile/UserProfile.vue'
+import BlockGrid from '@/components/block/BlockGrid.vue'
 
 defineProps<{
   space: SpaceProfile
@@ -24,7 +24,7 @@ defineProps<{
       </aside>
 
       <main class="space-view__main">
-        <BentoGrid :blocks="space.blocks" />
+        <BlockGrid :blocks="space.blocks" />
       </main>
     </div>
   </div>

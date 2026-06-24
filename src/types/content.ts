@@ -1,11 +1,11 @@
-import type { BioBlock, UserProfile } from '@/types/bio'
+import type { Block, ProfileData } from '@/types/block'
 
 export interface SiteMeta {
   title: string
   description: string
 }
 
-export interface GithubUiCopy {
+export interface GitHubUiCopy {
   appName: string
   loginPrefix: string
   reposLabel: string
@@ -30,13 +30,13 @@ export interface GraphUiCopy {
 export interface SiteUiCopy {
   online: string
   titleDeco: string
-  github: GithubUiCopy
+  github: GitHubUiCopy
   graph: GraphUiCopy
 }
 
 export interface SiteContent {
   meta: SiteMeta
   ui: SiteUiCopy
-  profile: UserProfile
-  blocks: BioBlock[]
+  profile: ProfileData
+  blocks: Block[]
 }

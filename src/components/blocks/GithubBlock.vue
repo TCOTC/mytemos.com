@@ -1,18 +1,18 @@
 <script setup vapor lang="ts">
 import { computed } from 'vue'
-import { githubContributions as githubData } from '@/data/github'
+import { githubContributions } from '@/data/github'
 import { ui } from '@/data/content'
-import GithubIcon from '@/components/icons/GithubIcon.vue'
-import ContributionGraph from '@/components/blocks/ContributionGraph.vue'
+import { githubIcon } from '@/data/assets'
+import ContributionGraph from '@/components/blocks/github/ContributionGraph.vue'
 
 const metrics = computed(() => [
-  { key: 'repos', value: githubData.repos, label: ui.github.reposLabel },
-  { key: 'followers', value: githubData.followers, label: ui.github.followersLabel },
-  { key: 'following', value: githubData.following, label: ui.github.followingLabel },
-  { key: 'starred', value: githubData.starred, label: ui.github.starredLabel },
+  { key: 'repos', value: githubContributions.repos, label: ui.github.reposLabel },
+  { key: 'followers', value: githubContributions.followers, label: ui.github.followersLabel },
+  { key: 'following', value: githubContributions.following, label: ui.github.followingLabel },
+  { key: 'starred', value: githubContributions.starred, label: ui.github.starredLabel },
   {
     key: 'streak',
-    value: githubData.currentStreak,
+    value: githubContributions.currentStreak,
     label: ui.github.streakLabel,
     suffix: ui.github.streakSuffix,
   },
@@ -20,21 +20,21 @@ const metrics = computed(() => [
 </script>
 
 <template>
-  <a class="github-block" :href="githubData.href" target="_blank" rel="noopener noreferrer">
+  <a class="github-block" :href="githubContributions.href" target="_blank" rel="noopener noreferrer">
     <div class="github-block__top">
       <div class="github-block__header">
         <div class="github-block__brand">
           <div class="github-block__icon-wrap">
-            <GithubIcon class="github-block__icon" />
+            <img class="github-block__icon" :src="githubIcon" alt="" width="27" height="27" />
           </div>
           <span class="github-block__app-name">{{ ui.github.appName }}</span>
         </div>
-        <span class="github-block__handle">{{ ui.github.loginPrefix }}{{ githubData.login }}</span>
+        <span class="github-block__handle">{{ ui.github.loginPrefix }}{{ githubContributions.login }}</span>
       </div>
 
       <div class="github-block__summary">
-        <p v-if="githubData.bio" class="github-block__bio">
-          {{ ui.github.bioQuoteOpen }}{{ githubData.bio }}{{ ui.github.bioQuoteClose }}
+        <p v-if="githubContributions.bio" class="github-block__bio">
+          {{ ui.github.bioQuoteOpen }}{{ githubContributions.bio }}{{ ui.github.bioQuoteClose }}
         </p>
 
         <ul class="github-block__metrics">
@@ -58,7 +58,7 @@ const metrics = computed(() => [
     <div class="github-block__graph">
       <div class="github-block__graph-header">
         <p class="github-block__graph-title">
-          {{ githubData.totalContributions }} {{ ui.github.contributionsSuffix }}
+          {{ githubContributions.totalContributions }} {{ ui.github.contributionsSuffix }}
         </p>
         <div class="github-block__legend" aria-hidden="true">
           <span class="github-block__legend-label">{{ ui.github.less }}</span>
@@ -70,7 +70,7 @@ const metrics = computed(() => [
           <span class="github-block__legend-label">{{ ui.github.more }}</span>
         </div>
       </div>
-      <ContributionGraph :weeks="githubData.weeks" />
+      <ContributionGraph :weeks="githubContributions.weeks" />
     </div>
   </a>
 </template>
@@ -263,24 +263,7 @@ const metrics = computed(() => [
   width: 8px;
   height: 8px;
   border: 1px solid rgb(26 26 46 / 12%);
-  background-color: #ebedf0;
-
-  &--1 {
-    background-color: #9be9a8;
-  }
-
-  &--2 {
-    background-color: #40c463;
-  }
-
-  &--3 {
-    background-color: #30a14e;
-  }
-
-  &--4 {
-    background-color: #216e39;
-    border-color: #216e39;
-  }
+  @include contribution-level-colors;
 }
 
 @media (max-width: $breakpoint-mobile) {

@@ -1,10 +1,10 @@
 <script setup vapor lang="ts">
 import { ref } from 'vue'
-import type { UserProfile } from '@/types/bio'
+import type { ProfileData } from '@/types/block'
 import { ui } from '@/data/content'
 
 defineProps<{
-  profile: UserProfile
+  profile: ProfileData
 }>()
 
 const avatarSpinning = ref(false)
@@ -23,7 +23,7 @@ function onAvatarSpinEnd() {
 
 <template>
   <section class="user-profile">
-    <div class="user-profile__bento-align" aria-hidden="true" />
+    <div class="user-profile__grid-align" aria-hidden="true" />
 
     <div class="user-profile__avatar-wrap">
       <span
@@ -62,15 +62,15 @@ function onAvatarSpinEnd() {
   flex-direction: column;
 }
 
-.user-profile__bento-align {
+.user-profile__grid-align {
   display: none;
 }
 
 @media (min-width: $breakpoint-wide) {
-  .user-profile__bento-align {
+  .user-profile__grid-align {
     display: block;
     flex-shrink: 0;
-    height: $bento-avatar-align-height;
+    height: $block-grid-avatar-align-height;
   }
 }
 

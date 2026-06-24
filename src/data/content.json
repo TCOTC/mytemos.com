@@ -30,7 +30,7 @@
   "profile": {
     "nickname": "Jeffrey Chen",
     "description": "积累一个又一个的瞬间",
-    "avatar": "/images/jeff/avatar.png"
+    "avatar": "/images/avatar.png"
   },
   "blocks": [
     {
@@ -55,7 +55,7 @@
         "title": "爱发电 (打赏)",
         "url": "afdian.com",
         "href": "https://afdian.com/a/JeffreyChen",
-        "favicon": "/images/jeff/afdian-favicon.png"
+        "favicon": "/images/afdian-favicon.png"
       }
     },
     {
@@ -73,7 +73,7 @@
         "title": "链滴主页",
         "url": "ld246.com",
         "href": "https://ld246.com/member/JeffreyChen",
-        "favicon": "/images/jeff/ld246-favicon.jpg"
+        "favicon": "/images/ld246-favicon.jpg"
       }
     },
     {
@@ -112,8 +112,8 @@
         "title": "SiYuan: Note-Taking App",
         "url": "github.com",
         "href": "https://github.com/siyuan-note/siyuan",
-        "favicon": "/images/jeff/siyuan-favicon.jpg",
-        "image": "/images/jeff/siyuan-preview.png"
+        "favicon": "/images/siyuan-favicon.jpg",
+        "image": "/images/siyuan-preview.png"
       }
     },
     {
@@ -132,8 +132,8 @@
         "title": "Whisper: a SiYuan theme",
         "url": "github.com",
         "href": "https://github.com/TCOTC/Whisper",
-        "favicon": "/images/jeff/whisper-favicon.jpg",
-        "image": "/images/jeff/whisper-preview.png"
+        "favicon": "/images/whisper-favicon.jpg",
+        "image": "/images/whisper-preview.png"
       }
     }
   ]

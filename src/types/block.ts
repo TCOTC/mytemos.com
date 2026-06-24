@@ -16,7 +16,7 @@ export interface BlockTheme {
   titleAccent?: string
 }
 
-interface BioBlockBase {
+interface BlockBase {
   id: string
   layout: BlockLayout
   layoutMobile?: BlockLayout
@@ -36,19 +36,19 @@ export interface WebsiteImageContent extends WebsiteContent {
   image: string
 }
 
-export type BioBlock =
-  | (BioBlockBase & { type: 'title'; content: { text: string } })
-  | (BioBlockBase & { type: 'website'; content: WebsiteContent })
-  | (BioBlockBase & { type: 'website-image'; content: WebsiteImageContent })
-  | (BioBlockBase & { type: 'github' })
+export type Block =
+  | (BlockBase & { type: 'title'; content: { text: string } })
+  | (BlockBase & { type: 'website'; content: WebsiteContent })
+  | (BlockBase & { type: 'website-image'; content: WebsiteImageContent })
+  | (BlockBase & { type: 'github' })
 
-export interface UserProfile {
+export interface ProfileData {
   nickname: string
   description: string
   avatar: string
 }
 
 export interface SpaceProfile {
-  user: UserProfile
-  blocks: BioBlock[]
+  user: ProfileData
+  blocks: Block[]
 }
