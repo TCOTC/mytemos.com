@@ -3,13 +3,13 @@ import type { SiteContent } from '@/types/content'
 import { resolveImage } from '@/data/assets'
 import raw from './content.json'
 
-export const content = applyImages(raw as SiteContent)
+const siteContent = applyImages(raw as SiteContent)
 
-export const { meta, ui, profile, blocks } = content
+export const ui = siteContent.ui
 
 export const spaceProfile: SpaceProfile = {
-  user: profile,
-  blocks,
+  user: siteContent.profile,
+  blocks: siteContent.blocks,
 }
 
 function applyBlockImages(block: Block): Block {

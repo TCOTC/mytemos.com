@@ -1,8 +1,9 @@
 {
   "name": "mytemos.com",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "packageManager": "pnpm@11.9.0",
   "scripts": {
     "predev": "node scripts/ensure-github-data.mjs && node scripts/build-fonts.mjs",
     "dev": "vite",

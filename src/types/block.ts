@@ -1,5 +1,3 @@
-export type BlockType = 'title' | 'website' | 'website-image' | 'github'
-
 export interface BlockLayout {
   x: number
   y: number
