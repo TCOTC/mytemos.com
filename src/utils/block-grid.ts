@@ -5,7 +5,7 @@ import {
 } from '@/constants/block-grid'
 import type { Block, BlockLayout, BlockTheme } from '@/types/block'
 
-type RowTrackKind = 'auto' | 'cell' | 'standard'
+type RowTrackKind = 'auto' | 'title-section' | 'cell' | 'standard'
 
 function resolveLayout(block: Block, mobile: boolean): BlockLayout {
   if (mobile && block.layoutMobile) return block.layoutMobile
@@ -19,13 +19,14 @@ function isSquareWebsiteBlock(block: Block, mobile: boolean): boolean {
 }
 
 function getRowTrackKind(block: Block, mobile: boolean): RowTrackKind {
-  if (block.type === 'title') return 'auto'
+  if (block.type === 'title') return block.sectionGap ? 'title-section' : 'auto'
   if (isSquareWebsiteBlock(block, mobile)) return 'cell'
   return 'standard'
 }
 
 function rowTrackSize(kind: RowTrackKind, standardPx: number): string {
   if (kind === 'auto') return 'var(--block-grid-title-row-height)'
+  if (kind === 'title-section') return 'var(--block-grid-title-section-row-height)'
   if (kind === 'cell') return 'var(--block-grid-cell)'
   return `${standardPx}px`
 }

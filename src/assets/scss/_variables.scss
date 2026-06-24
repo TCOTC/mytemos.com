@@ -38,10 +38,11 @@ $font-body: 'DM Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', san
 $grid-columns: 8;
 $grid-columns-mobile: 4;
 $grid-gap: 10px;
-$title-section-gap: 18px;
+$title-section-gap: 28px;
 $title-cards-gap: 18px;
 $space-view-padding-top: 40px;
 $space-view-padding-top-wide: 54px;
+$space-view-padding-bottom: 40px;
 // 与 TitleBlock 标题区同步，用于宽屏侧栏头像与首张 block 卡片顶对齐
 $title-block-font-size: 26px;
 $title-block-line-height: 1.1;
@@ -52,6 +53,10 @@ $block-grid-title-height:
   $title-block-squiggle-height;
 // 标题行 track = 标题内容 + 与下方卡片的间距（margin-bottom）
 $block-grid-title-row-height: $block-grid-title-height + $title-cards-gap;
+// 分段标题行 track = 上方分段间距 + 标题内容 + 与下方卡片的间距
+$block-grid-title-section-row-height: $block-grid-title-row-height + $title-section-gap;
+// grid 容器高度比行轨道总高低出的差值（标题块间距绘制在容器外）
+$block-grid-track-overflow: $title-cards-gap * 2 + $title-section-gap - $grid-gap;
 // 侧栏占位 = 标题行 + 网格行间距，与首张卡片顶对齐
 $block-grid-avatar-align-height: $block-grid-title-row-height + $grid-gap;
 $grid-width-desktop: 700px;

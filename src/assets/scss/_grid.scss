@@ -8,6 +8,7 @@
   gap: $grid-gap;
   width: 100%;
   --block-grid-title-row-height: #{$block-grid-title-row-height};
+  --block-grid-title-section-row-height: #{$block-grid-title-section-row-height};
   margin-top: 40px;
   --block-grid-cell: min(
     calc((100% - (#{$grid-columns - 1} * #{$grid-gap})) / #{$grid-columns}),
@@ -47,13 +48,13 @@
   align-items: flex-start;
   // 覆盖 .block-grid__item 的 min-height: 0，避免 auto 行高被压扁导致与侧栏对齐偏移
   min-height: min-content;
-  padding: 0 $block-padding-x;
-  margin-bottom: $title-cards-gap;
+  padding: 0 $block-padding-x $title-cards-gap;
+  box-sizing: border-box;
 }
 
 // 仅拉开与上方卡片的距离，不影响标题与下方卡片的间距
 .block-grid__item--section-gap {
-  margin-top: $title-section-gap;
+  padding-top: $title-section-gap;
 }
 
 .block-grid__item--card {

@@ -22,18 +22,28 @@ function itemStyle(block: Block) {
 </script>
 
 <template>
-  <div class="block-grid" :style="gridContainerStyle(props.blocks)">
-    <BlockRenderer
-      v-for="block in props.blocks"
-      :key="block.id"
-      :block="block"
-      class="block-grid__item"
-      :class="itemClass(block)"
-      :style="itemStyle(block)"
-    />
+  <div class="block-grid-wrap">
+    <div class="block-grid" :style="gridContainerStyle(props.blocks)">
+      <BlockRenderer
+        v-for="block in props.blocks"
+        :key="block.id"
+        :block="block"
+        class="block-grid__item"
+        :class="itemClass(block)"
+        :style="itemStyle(block)"
+      />
+    </div>
+    <div class="block-grid-wrap__tail" aria-hidden="true" />
   </div>
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/scss/variables' as *;
 @use '@/assets/scss/grid';
+
+.block-grid-wrap__tail {
+  height: calc(
+    #{$space-view-padding-bottom} + #{$shadow-offset} + #{$block-grid-track-overflow}
+  );
+}
 </style>

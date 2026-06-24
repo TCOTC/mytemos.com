@@ -38,6 +38,7 @@ defineProps<{
   min-height: 100vh;
   background-color: transparent;
   overflow-x: clip;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .space-view__deco {
@@ -146,7 +147,6 @@ defineProps<{
   align-items: center;
   width: 100%;
   padding-top: $space-view-padding-top;
-  padding-bottom: 40px;
 }
 
 .space-view__sidebar {
@@ -165,7 +165,6 @@ defineProps<{
     justify-content: center;
     align-items: flex-start;
     padding-top: $space-view-padding-top-wide;
-    padding-bottom: 0;
   }
 
   .space-view__sidebar {
