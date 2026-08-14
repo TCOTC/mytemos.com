@@ -1,0 +1,3 @@
+# 思源集市统计子站，源站为独立 Cloudflare Pages 项目
+/siyuan-bazaar-stats   /siyuan-bazaar-stats/  301
+/siyuan-bazaar-stats/* https://siyuan-bazaar-stats.pages.dev/siyuan-bazaar-stats/:splat  200
