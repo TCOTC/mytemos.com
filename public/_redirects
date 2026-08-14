@@ -1,0 +1,2 @@
+/siyuan-bazaar-stats  https://siyuan-bazaar-stats.mytemos.com  301
+/siyuan-bazaar-stats/*  https://siyuan-bazaar-stats.mytemos.com/:splat  301
