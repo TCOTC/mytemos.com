@@ -3,12 +3,38 @@ name: Deploy to Cloudflare Pages
 on:
   schedule:
     - cron: '0 21 * * *' # 每天北京时间 05:00（UTC 21:00）
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
+  # 仓库连续 60 天无提交时，定时工作流会被自动停用，且不发出通知。
+  # 本 job 在 main 45 天没有提交时提交一个空提交，用于重置该计时器。
+  # 用 GITHUB_TOKEN 推送不会触发其他工作流，因此不会重复部署。
+  keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Commit an empty commit when main has been quiet for 45 days
+        run: |
+          days=$(( ($(date +%s) - $(git log -1 --format=%ct)) / 86400 ))
+          echo "main was last committed to ${days} days ago"
+          if [ "$days" -ge 45 ]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit --allow-empty -m 'chore: keepalive (reset the 60-day inactivity timer)'
+            git push origin HEAD:main
+          else
+            echo 'below the 45 day threshold, skipping'
+          fi
+
   deploy:
     runs-on: ubuntu-latest
     permissions:

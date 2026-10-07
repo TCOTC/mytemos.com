@@ -41,3 +41,13 @@ pnpm preview
 ## 部署
 
 推送到 `main` 分支后，GitHub Actions 会自动构建并部署到 Cloudflare Pages（见 [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)）。
+
+需要立即重新构建时，在仓库的 Actions 页面手动运行 `Deploy to Cloudflare Pages`。
+
+### 每日定时构建
+
+页面上的 GitHub 贡献图需要每天重新构建，所以每天 UTC 21:00（北京时间次日 05:00）会触发一次部署。
+
+公开仓库的定时工作流会在仓库连续 60 天「没有活动」后被 GitHub 自动停用，而且**不发出任何通知**。只有提交算活动，定时运行本身不算。
+
+`deploy.yml` 的 `keepalive` job 处理这件事：只在定时运行时执行，若 `main` 已经安静 45 天以上，就提交一个空提交把计时器清零。正常开发期间不会产生任何额外提交；完全安静时一年最多约 8 个。
